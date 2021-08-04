@@ -112,4 +112,68 @@ insulate( 'Lorem generators', function()
             assert.is_equal( '.', sentence:sub( -1 ) )
         end )
     end )
+
+    describe( 'sentences', function()
+        it( 'each word should be a valid lorem word', function()
+            local sentences = Lorem.sentences()
+
+            for k in string.gmatch( sentences, '(%a+)' ) do
+                assert.is_true( array_has_value( lorem_words, k,
+                                                 { ignore_case = true } ) )
+            end
+        end )
+
+        it( 'should end on point', function()
+            local sentences = Lorem.sentences()
+
+            assert.is_equal( '.', sentences:sub( -1 ) )
+        end )
+
+        it( 'should generate specified amount of sentences', function()
+            local amount = 5
+            local sentences = Lorem.sentences( 5 )
+
+            local count = 0
+            for _ in string.gmatch( sentences, '[.]' ) do
+                count = count + 1
+            end
+
+            assert.is_equal( amount, count )
+        end )
+
+        it( 'should generate between 2 and 6 sentences by default', function()
+            local sentences = Lorem.sentences()
+
+            local count = 0
+            for _ in string.gmatch( sentences, '[.]' ) do
+                count = count + 1
+            end
+
+            assert.is_true( count >= 2 and count <= 6 )
+        end )
+
+        it( 'should accept a separator', function()
+            local amount = 7
+            local sentences = Lorem.sentences( 7, '+' )
+
+            local count = 0
+            for _ in string.gmatch( sentences, '[+]' ) do
+                count = count + 1
+            end
+
+            assert.is.equal( amount - 1, count )
+        end )
+
+        it( 'should default separator to space', function()
+            local amount = 7
+            local sentences = Lorem.sentences( 7 )
+
+            local count = 0
+            for _ in string.gmatch( sentences, '[.][ ]' ) do
+                count = count + 1
+            end
+
+            assert.is.equal( amount - 1, count )
+        end )
+    end )
 end )

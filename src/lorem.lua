@@ -43,10 +43,29 @@ local function sentence( word_count )
     return capitalize( words( word_count ) ) .. '.'
 end
 
+local function sentences( count, separator )
+    local result = sentence()
+
+    if count == nil then
+        count = math.random( 2, 6 )
+    end
+
+    if separator == nil then
+        separator = ' '
+    end
+
+    for _ = 2, count do
+        result = result .. separator .. sentence()
+    end
+
+    return result
+end
+
 -- LuaFormatter off
 return {
     word = word,
     words = words,
-    sentence = sentence
+    sentence = sentence,
+    sentences = sentences
 }
 -- LuaFormatter on
