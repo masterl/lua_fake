@@ -22,7 +22,7 @@ insulate( 'Lorem generators', function()
 
         it( 'should pick words randomly', function()
             local values = {}
-            local total_count = 50
+            local total_count<const> = 50
 
             for _ = 1, total_count do
                 table.insert( values, Lorem.word() )
@@ -66,8 +66,8 @@ insulate( 'Lorem generators', function()
 
     describe( 'sentence', function()
         it( 'should generate the specified amount of words', function()
-            local word_count = 17
-            local sentence = Lorem.sentence( word_count )
+            local word_count<const> = 17
+            local sentence<const> = Lorem.sentence( word_count )
 
             local count = 0
             for _ in string.gmatch( sentence, '(%a+)' ) do
@@ -78,8 +78,8 @@ insulate( 'Lorem generators', function()
         end )
 
         it( 'each word should be a valid lorem word', function()
-            local word_count = 8
-            local sentence = Lorem.sentence( word_count )
+            local word_count<const> = 8
+            local sentence<const> = Lorem.sentence( word_count )
 
             for k in string.gmatch( sentence, '(%a+)' ) do
                 assert.is_true( array_has_value( lorem_words, k,
@@ -88,7 +88,7 @@ insulate( 'Lorem generators', function()
         end )
 
         it( 'should generate between 3 and 12 words by default', function()
-            local sentence = Lorem.sentence()
+            local sentence<const> = Lorem.sentence()
 
             local count = 0
             for _ in string.gmatch( sentence, '(%a+)' ) do
@@ -99,15 +99,15 @@ insulate( 'Lorem generators', function()
         end )
 
         it( 'sentence should be capitalized', function()
-            local sentence = Lorem.sentence()
+            local sentence<const> = Lorem.sentence()
 
-            local first_letter = string.gmatch( sentence, '%u' )()
+            local first_letter<const> = string.gmatch( sentence, '%u' )()
 
             assert.is_equal( 1, string.len( first_letter ) )
         end )
 
         it( 'sentence should end on point', function()
-            local sentence = Lorem.sentence()
+            local sentence<const> = Lorem.sentence()
 
             assert.is_equal( '.', sentence:sub( -1 ) )
         end )
@@ -115,7 +115,7 @@ insulate( 'Lorem generators', function()
 
     describe( 'sentences', function()
         it( 'each word should be a valid lorem word', function()
-            local sentences = Lorem.sentences()
+            local sentences<const> = Lorem.sentences()
 
             for k in string.gmatch( sentences, '(%a+)' ) do
                 assert.is_true( array_has_value( lorem_words, k,
@@ -124,14 +124,14 @@ insulate( 'Lorem generators', function()
         end )
 
         it( 'should end on point', function()
-            local sentences = Lorem.sentences()
+            local sentences<const> = Lorem.sentences()
 
             assert.is_equal( '.', sentences:sub( -1 ) )
         end )
 
         it( 'should generate specified amount of sentences', function()
-            local amount = 5
-            local sentences = Lorem.sentences( 5 )
+            local amount<const> = 5
+            local sentences<const> = Lorem.sentences( 5 )
 
             local count = 0
             for _ in string.gmatch( sentences, '[.]' ) do
@@ -142,7 +142,7 @@ insulate( 'Lorem generators', function()
         end )
 
         it( 'should generate between 2 and 6 sentences by default', function()
-            local sentences = Lorem.sentences()
+            local sentences<const> = Lorem.sentences()
 
             local count = 0
             for _ in string.gmatch( sentences, '[.]' ) do
@@ -153,8 +153,8 @@ insulate( 'Lorem generators', function()
         end )
 
         it( 'should accept a separator', function()
-            local amount = 7
-            local sentences = Lorem.sentences( 7, '+' )
+            local amount<const> = 7
+            local sentences<const> = Lorem.sentences( 7, '+' )
 
             local count = 0
             for _ in string.gmatch( sentences, '[+]' ) do
@@ -165,8 +165,8 @@ insulate( 'Lorem generators', function()
         end )
 
         it( 'should default separator to space', function()
-            local amount = 7
-            local sentences = Lorem.sentences( 7 )
+            local amount<const> = 7
+            local sentences<const> = Lorem.sentences( 7 )
 
             local count = 0
             for _ in string.gmatch( sentences, '[.][ ]' ) do
