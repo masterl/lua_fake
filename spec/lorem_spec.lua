@@ -176,4 +176,38 @@ insulate( 'Lorem generators', function()
             assert.is.equal( amount - 1, count )
         end )
     end )
+
+    describe( 'paragraph', function()
+        it( 'should default to between 3 and 6 sentences', function()
+            local paragraph<const> = Lorem.paragraph()
+
+            local count = 0
+            for _ in string.gmatch( paragraph, '[.][ ]' ) do
+                count = count + 1
+            end
+
+            assert.is_true( count >= 2 and count <= 5 )
+        end )
+
+        it( 'each word should be a valid lorem word', function()
+            local paragraph<const> = Lorem.paragraph()
+
+            for k in string.gmatch( paragraph, '(%a+)' ) do
+                assert.is_true( array_has_value( lorem_words, k,
+                                                 { ignore_case = true } ) )
+            end
+        end )
+
+        it( 'should generate specified amount of sentences', function()
+            local amount<const> = 17
+            local paragraph<const> = Lorem.paragraph( amount )
+
+            local count = 0
+            for _ in string.gmatch( paragraph, '[.][ ]' ) do
+                count = count + 1
+            end
+
+            assert.is.equal( amount - 1, count )
+        end )
+    end )
 end )

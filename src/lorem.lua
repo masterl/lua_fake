@@ -61,11 +61,26 @@ local function sentences( count, separator )
     return result
 end
 
+local function paragraph( count )
+    local result = sentence()
+
+    if count == nil then
+        count = 3
+    end
+
+    for _ = 2, count do
+        result = result .. ' ' .. sentence()
+    end
+
+    return result
+end
+
 -- LuaFormatter off
 return {
     word = word,
     words = words,
     sentence = sentence,
-    sentences = sentences
+    sentences = sentences,
+    paragraph = paragraph
 }
 -- LuaFormatter on
