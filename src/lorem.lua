@@ -18,4 +18,14 @@ local function word()
     return pick_one( lorem_words, word_count )
 end
 
-return { word = word }
+local function words( count )
+    local result = ''
+
+    for _ = 1, count do
+        result = result .. ' ' .. word()
+    end
+
+    return result
+end
+
+return { word = word, words = words }

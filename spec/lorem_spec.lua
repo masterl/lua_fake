@@ -38,4 +38,29 @@ insulate( 'Lorem generators', function()
             assert.is_not.equal( equal_words, total_count )
         end )
     end )
+
+    describe( 'words', function()
+        local words
+        local word_count
+
+        before_each( function()
+            word_count = math.random( 2, 10 )
+            words = Lorem.words( word_count )
+        end )
+
+        it( 'should generate the specified amount of words', function()
+            local count = 0
+            for _ in string.gmatch( words, '(%a+)' ) do
+                count = count + 1
+            end
+
+            assert.is.equal( word_count, count )
+        end )
+
+        it( 'each word should be a valid lorem word', function()
+            for k in string.gmatch( words, '(%a+)' ) do
+                assert.is_true( array_has_value( lorem_words, k ) )
+            end
+        end )
+    end )
 end )
