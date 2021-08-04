@@ -5,20 +5,19 @@ insulate( 'Lorem generators', function()
     local array_has_value = test_helpers.array_has_value
 
     describe( 'word', function()
-        local word = Lorem.word
-        local value
+        local word
 
         setup( function()
-            value = word()
+            word = Lorem.word()
         end )
 
         it( 'should return a word', function()
-            assert.is_true( type( value ) == 'string' )
-            assert.are.equals( string.match( value, '%a+' ), value )
+            assert.is_true( type( word ) == 'string' )
+            assert.are.equals( string.match( word, '%a+' ), word )
         end )
 
         it( 'the word should be a lorem one', function()
-            assert.is_true( array_has_value( lorem_words, value ) )
+            assert.is_true( array_has_value( lorem_words, word ) )
         end )
 
         it( 'should pick words randomly', function()
@@ -26,7 +25,7 @@ insulate( 'Lorem generators', function()
             local total_count = 50
 
             for _ = 1, total_count do
-                table.insert( values, word() )
+                table.insert( values, Lorem.word() )
             end
 
             local equal_words = 1
