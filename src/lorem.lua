@@ -1,9 +1,12 @@
-local lorem_words = require( './data/lorem_words' )
+-- LuaFormatter off
+local lorem = {
+    words       = require( './data/lorem_words' ),
+    total_count = 0
+}
+-- LuaFormatter on
 
-local word_count = 0
-
-for _, _ in ipairs( lorem_words ) do
-    word_count = word_count + 1
+for _, _ in ipairs( lorem.words ) do
+    lorem.total_count = lorem.total_count + 1
 end
 
 math.randomseed( os.time() )
@@ -14,18 +17,36 @@ local function pick_one( array, size )
     return array[index]
 end
 
+local function capitalize( str )
+    return str:gsub( '^%l', string.upper )
+end
+
 local function word()
-    return pick_one( lorem_words, word_count )
+    return pick_one( lorem.words, lorem.total_count )
 end
 
 local function words( count )
-    local result = ''
+    local result = word()
 
-    for _ = 1, count do
+    for _ = 2, count do
         result = result .. ' ' .. word()
     end
 
     return result
 end
 
-return { word = word, words = words }
+local function sentence( word_count )
+    if word_count == nil then
+        word_count = math.random( 3, 12 )
+    end
+
+    return capitalize( words( word_count ) ) .. '.'
+end
+
+-- LuaFormatter off
+return {
+    word = word,
+    words = words,
+    sentence = sentence
+}
+-- LuaFormatter on

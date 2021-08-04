@@ -63,4 +63,53 @@ insulate( 'Lorem generators', function()
             end
         end )
     end )
+
+    describe( 'sentence', function()
+        it( 'should generate the specified amount of words', function()
+            local word_count = 17
+            local sentence = Lorem.sentence( word_count )
+
+            local count = 0
+            for _ in string.gmatch( sentence, '(%a+)' ) do
+                count = count + 1
+            end
+
+            assert.is.equal( word_count, count )
+        end )
+
+        it( 'each word should be a valid lorem word', function()
+            local word_count = 8
+            local sentence = Lorem.sentence( word_count )
+
+            for k in string.gmatch( sentence, '(%a+)' ) do
+                assert.is_true( array_has_value( lorem_words, k,
+                                                 { ignore_case = true } ) )
+            end
+        end )
+
+        it( 'should generate between 3 and 12 words by default', function()
+            local sentence = Lorem.sentence()
+
+            local count = 0
+            for _ in string.gmatch( sentence, '(%a+)' ) do
+                count = count + 1
+            end
+
+            assert.is_true( count >= 3 and count <= 12 )
+        end )
+
+        it( 'sentence should be capitalized', function()
+            local sentence = Lorem.sentence()
+
+            local first_letter = string.gmatch( sentence, '%u' )()
+
+            assert.is_equal( 1, string.len( first_letter ) )
+        end )
+
+        it( 'sentence should end on point', function()
+            local sentence = Lorem.sentence()
+
+            assert.is_equal( '.', sentence:sub( -1 ) )
+        end )
+    end )
 end )
